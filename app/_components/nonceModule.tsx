@@ -94,13 +94,11 @@ export default function Nonce() {
               </div>
             </CardContent>
           ) : (
-            <>
-              <CardContent>
-                <div className="input-row text-muted-foreground">
-                  - wallet not connected -
-                </div>
-              </CardContent>
-            </>
+            <CardContent>
+              <div className="input-row text-muted-foreground">
+                - wallet not connected -
+              </div>
+            </CardContent>
           )}
           <CardFooter>
             <Button className="font-bold" onClick={getNonce}>
