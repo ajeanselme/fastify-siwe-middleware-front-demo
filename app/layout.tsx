@@ -3,7 +3,10 @@ import { Geist, Geist_Mono, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
-const jetbrainsMono = JetBrains_Mono({subsets:['latin'],variable:'--font-mono'});
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains-mono",
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,10 +31,27 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn("h-full", "antialiased", geistSans.variable, geistMono.variable, "font-mono", jetbrainsMono.variable)}
+      className={cn(
+        "h-full",
+        "dark",
+        "antialiased",
+        geistSans.variable,
+        jetbrainsMono.variable,
+      )}
     >
       <body className="min-h-full flex flex-col">
-        {children}
+        <main className="min-h-svh w-full">
+          <div className="w-full bg-surface border-b p-4 flex items-center gap-2 font-mono text-xs">
+            <div className="flex gap-2">
+              <span className="text-accent font-semibold">web3-siwe-middleware</span>
+              <span className="text-muted">/</span>
+              <span className="text-muted-foreground">front demo</span>
+            </div>
+          </div>
+          <div className="w-full flex">
+            {children}
+          </div>
+        </main>
       </body>
     </html>
   );
