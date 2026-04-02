@@ -2,7 +2,7 @@
 
 import { useStore } from "@nanostores/react";
 import { $stepState } from "./_stores/progressStore";
-import Connect from "./_components/connect";
+import Connect from "./_components/connectModule";
 import Sidebar from "./_components/sidebar";
 
 export default function Home() {
