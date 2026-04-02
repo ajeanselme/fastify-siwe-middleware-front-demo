@@ -1,9 +1,14 @@
 import { useStore } from "@nanostores/react";
-import { $stepProgress, setStepProgress } from "../_stores/progressStore";
-import { Button } from "@/components/ui/button";
+import {
+  $stepProgress,
+  $stepState,
+  setStepState,
+} from "../_stores/progressStore";
 import { twMerge } from "tailwind-merge";
+import { CheckIcon } from "@phosphor-icons/react";
 
 export default function Sidebar() {
+  const stepState = useStore($stepState);
   const stepProgress = useStore($stepProgress);
 
   function NavButton({
@@ -16,25 +21,33 @@ export default function Sidebar() {
     return (
       <button
         className={twMerge(
-          "group flex gap-1 w-full text-sm pl-4 py-3 text-left text-muted-foreground",
-          stepProgress === step
-            ? "bg-muted no-underline border-l-2 border-accent text-accent"
+          "group flex gap-1 w-full text-sm pl-4 py-3 text-left text-muted-foreground items-center",
+          stepState === step
+            ? "bg-muted no-underline border-l-2 pl-3.5 border-accent text-accent"
             : "hover:text-foreground hover:bg-primary/5 hover:cursor-pointer",
         )}
         onClick={() => {
-          setStepProgress(step);
+          setStepState(step);
         }}
       >
-        <div
-          className={twMerge(
-            "rounded-full border border-muted-foreground w-6 h-6 flex items-center justify-center text-[10px] font-mono mr-2",
-            stepProgress === step
-              ? "border-accent"
-              : "group-hover:border-foreground",
-          )}
-        >
-          {step + 1}
-        </div>
+        {step < stepProgress ? (
+          <div
+            className={"rounded-full border border-accent w-6 h-6 flex items-center justify-center text-[10px] font-mono mr-2 bg-accent/80"}
+          >
+            <CheckIcon className="text-surface" size={15}/>
+          </div>
+        ) : (
+          <div
+            className={twMerge(
+              "rounded-full border border-muted-foreground w-6 h-6 flex items-center justify-center text-[10px] font-mono mr-2",
+              stepState === step
+                ? "border-accent"
+                : "group-hover:border-foreground",
+            )}
+          >
+            {step + 1}
+          </div>
+        )}
         {children}
       </button>
     );
