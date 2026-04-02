@@ -54,11 +54,11 @@ export default function Sidebar() {
   }
 
   return (
-    <div className="font-mono bg-surface border-r text-xs">
+    <div className="font-mono bg-surface border-r text-xs col-span-4 sm:col-span-1 border-b">
       <div className="text-xs uppercase text-muted-foreground p-4">
         Auth Flow
       </div>
-      <nav className="min-h-screen w-64 flex flex-col text-foreground">
+      <nav className="w-full flex flex-col text-foreground">
         <NavButton step={0}>connect wallet</NavButton>
         <NavButton step={1}>get nonce</NavButton>
         <NavButton step={2}>sign & verify</NavButton>

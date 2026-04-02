@@ -37,7 +37,7 @@ const LogWindow = forwardRef<LogWindowHandle, { step: number }>(
     );
 
     return (
-      <div className="w-full h-full bg-background border rounded p-4 overflow-auto">
+      <div className="w-full bg-background border rounded p-4 overflow-auto">
         {lines.length > 0 ? (
           <div className="flex flex-col gap-1 text-sm text-muted-foreground">
             {lines.map((logEntry, index) => (

@@ -39,19 +39,17 @@ export default function RootLayout({
         jetbrainsMono.variable,
       )}
     >
-      <body className="min-h-full flex flex-col">
-        <main className="min-h-svh w-full">
-          <div className="w-full bg-surface border-b p-4 flex items-center gap-2 font-mono text-xs">
-            <div className="flex gap-2">
-              <span className="text-accent font-semibold">web3-siwe-middleware</span>
-              <span className="text-muted">/</span>
-              <span className="text-muted-foreground">front demo</span>
-            </div>
+      <body className="sm:min-h-full grid grid-cols-1 sm:grid-cols-4 grid-rows-[49px_1fr]">
+        <div className="w-full h-fit bg-surface border-b p-4 flex col-span-4 items-center gap-2 font-mono text-xs">
+          <div className="flex gap-2">
+            <span className="text-accent font-semibold">
+              web3-siwe-middleware
+            </span>
+            <span className="text-muted">/</span>
+            <span className="text-muted-foreground">front demo</span>
           </div>
-          <div className="w-full flex">
-            {children}
-          </div>
-        </main>
+        </div>
+        {children}
       </body>
     </html>
   );

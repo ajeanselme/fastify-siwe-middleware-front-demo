@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <>
       <Sidebar />
-      <div className="p-4 w-full">{stepState === 0 ? <Connect /> : <></>}</div>
+      <div className="p-4 w-full sm:col-span-3">{stepState === 0 ? <Connect /> : <></>}</div>
     </>
   );
 }

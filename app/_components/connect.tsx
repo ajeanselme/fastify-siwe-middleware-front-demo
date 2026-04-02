@@ -96,82 +96,87 @@ export default function Connect() {
   }
 
   return (
-    <div className="flex flex-col gap-4 w-full">
-      <h2 className="font-mono text-xs text-muted-foreground">STEP 1</h2>
-      <h1 className="text-2xl">
-        Connect your <span className="text-accent">wallet</span>
-      </h1>
-      <Card>
-        <CardHeader>
-          <CardTitle>EIP-1193 Provider</CardTitle>
-        </CardHeader>
+    <div className="flex flex-col justify-between w-full">
+      <div className="flex flex-col gap-4 w-full h-full">
+        <h2 className="font-mono text-xs text-muted-foreground">STEP 1</h2>
+        <h1 className="text-2xl">
+          Connect your <span className="text-accent">wallet</span>
+        </h1>
+        <Card>
+          <CardHeader>
+            <CardTitle>EIP-1193 Provider</CardTitle>
+          </CardHeader>
 
-        {walletAddress ? (
-          <CardContent className="flex flex-col gap-2">
-            <div className="bg-accent/10 border border-accent/20 p-4 flex gap-6 items-center rounded-sm font-mono">
-              <div className="w-2 h-2 rounded-full bg-accent shadow-2xl shadow-accent animate-pulse" />
-              <p className="text-accent text-xs">
-                {truncateAddress(walletAddress)}
+          {walletAddress ? (
+            <CardContent className="flex flex-col gap-2">
+              <div className="bg-accent/10 border border-accent/20 p-4 flex gap-6 items-center rounded-sm font-mono">
+                <div className="w-2 h-2 rounded-full bg-accent shadow-2xl shadow-accent animate-pulse" />
+                <p className="text-accent text-xs">
+                  {truncateAddress(walletAddress)}
+                </p>
+              </div>
+              <p className="text-muted-foreground text-xs font-mono">
+                chain id: <span className="text-accent2">{chainid}</span>
               </p>
-            </div>
-            <p className="text-muted-foreground text-xs font-mono">
-              chain id: <span className="text-accent2">{chainid}</span>
-            </p>
-          </CardContent>
-        ) : (
-          <>
-            <CardContent>
-              This demo calls{" "}
-              <span className="text-accent2">
-                window.ethereum.request({"{"} method: 'eth_requestAccounts'{" "}
-                {"}"})
-              </span>{" "}
-              to get the connected wallet address. No popup blocker worries —
-              you click the button, MetaMask handles the rest.
             </CardContent>
-            <CardFooter className="gap-4">
-              <Button onClick={connectWallet}>Connect Wallet</Button>
-              <Button variant="outline" onClick={connectSimulatedWallet}>
-                Simulate Wallet
-              </Button>
-            </CardFooter>
-          </>
-        )}
-      </Card>
-      <Card>
-        <CardHeader>
-          <CardTitle>What happens here</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <pre className="code-block">
-            <span className="cmt">
-              {
-                "// EIP-1193 — standard across MetaMask, Coinbase Wallet, etc.\n"
-              }
-            </span>
-            <span className="purple">const</span>
-            {" [address] = "}
-            <span className="purple">await</span>
-            {" window.ethereum."}
-            <span className="fn">request</span>
-            {"({\n    method: "}
-            <span className="str">'eth_requestAccounts'</span>
-            {"\n });\n"}
-            <span className="purple">const</span>
-            {" chainId = "}
-            <span className="purple">await</span>
-            {" window.ethereum."}
-            <span className="fn">request</span>
-            {"({\n    method: "}
-            <span className="str">'eth_chainId'</span>
-            {"\n});"}
-            <span className="cmt">
-              {' // e.g. "0x1" for mainnet, "0x89" for Polygon'}
-            </span>
-          </pre>
-        </CardContent>
-      </Card>
-      <LogWindow ref={logRef} step={0} />
+          ) : (
+            <>
+              <CardContent>
+                This demo calls{" "}
+                <span className="text-accent2">
+                  window.ethereum.request({"{"} method: 'eth_requestAccounts'{" "}
+                  {"}"})
+                </span>{" "}
+                to get the connected wallet address. No popup blocker worries —
+                you click the button, MetaMask handles the rest.
+              </CardContent>
+              <CardFooter className="gap-4">
+                <Button onClick={connectWallet}>Connect Wallet</Button>
+                <Button variant="outline" onClick={connectSimulatedWallet}>
+                  Simulate Wallet
+                </Button>
+              </CardFooter>
+            </>
+          )}
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>What happens here</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <pre className="code-block">
+              <span className="cmt">
+                {
+                  "// EIP-1193 — standard across MetaMask, Coinbase Wallet, etc.\n"
+                }
+              </span>
+              <span className="purple">const</span>
+              {" [address] = "}
+              <span className="purple">await</span>
+              {" window.ethereum."}
+              <span className="fn">request</span>
+              {"({\n    method: "}
+              <span className="str">'eth_requestAccounts'</span>
+              {"\n });\n"}
+              <span className="purple">const</span>
+              {" chainId = "}
+              <span className="purple">await</span>
+              {" window.ethereum."}
+              <span className="fn">request</span>
+              {"({\n    method: "}
+              <span className="str">'eth_chainId'</span>
+              {"\n});"}
+              <span className="cmt">
+                {' // e.g. "0x1" for mainnet, "0x89" for Polygon'}
+              </span>
+            </pre>
+          </CardContent>
+        </Card>
+        <LogWindow ref={logRef} step={0} />
+      </div>
+      <div>
+        <Button>next: get nonce</Button>
+      </div>
     </div>
   );
 }
