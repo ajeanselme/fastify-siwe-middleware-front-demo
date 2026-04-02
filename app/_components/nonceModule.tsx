@@ -11,11 +11,12 @@ import { useStore } from "@nanostores/react";
 import { $chainId, $walletAddress } from "../_stores/walletStore";
 import LogWindow, { LogWindowHandle } from "./logWindow";
 import React from "react";
-import { setStepState } from "../_stores/progressStore";
+import { setStepProgress, setStepState } from "../_stores/progressStore";
 import { Button } from "@/components/ui/button";
 import { ArrowRightIcon } from "@phosphor-icons/react";
 import { Badge } from "@/components/ui/badge";
 import { truncateAddress } from "@/lib/wallet";
+import { setNonce } from "../_stores/nonceStore";
 
 export default function Nonce() {
   const walletAddress = useStore($walletAddress);
@@ -46,11 +47,22 @@ export default function Nonce() {
         "success",
       );
       const data = await response.json();
-      logRef.current?.appendLog(
-        `nonce: ${(data.nonce as string).substring(0, 20)}...`,
-        "info",
-      );
-      logRef.current?.appendLog(`stored in Redis - TTL 300s`, "info");
+      const nonce = data.nonce as string | undefined;
+
+      if (nonce) {
+        logRef.current?.appendLog(
+          `nonce: ${(data.nonce as string).substring(0, 20)}...`,
+          "info",
+        );
+        logRef.current?.appendLog(`stored in Redis - TTL 300s`, "info");
+        setNonce(nonce);
+        setStepProgress(1);
+      } else {
+        logRef.current?.appendLog(
+          `200 OK - but nonce missing in response`,
+          "error",
+        );
+      }
     } else {
       if (response.ok) {
         const errorData = await response.json();
