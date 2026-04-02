@@ -138,8 +138,8 @@ export default function Nonce() {
               <span className="str">&apos;EX&apos;</span>
               {","}
               <span className="param"> 300</span>
-              {");\n"}
-
+              <span className="fn">{")"}</span>
+              {";\n"}
               <span className="purple">return</span>
               {" { nonce };"}
             </pre>
