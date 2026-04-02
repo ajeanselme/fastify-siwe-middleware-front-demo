@@ -17,7 +17,8 @@ import {
 } from "../_stores/walletStore";
 import LogWindow, { LogWindowHandle } from "./logWindow";
 import React from "react";
-import { setStepProgress } from "../_stores/progressStore";
+import { setStepProgress, setStepState } from "../_stores/progressStore";
+import { ArrowRightIcon } from "@phosphor-icons/react";
 
 type EIP1193Provider = {
   request: <T = unknown>(args: {
@@ -96,7 +97,7 @@ export default function Connect() {
   }
 
   return (
-    <div className="flex flex-col justify-between w-full">
+    <div className="flex flex-col h-full justify-between w-full">
       <div className="flex flex-col gap-4 w-full h-full">
         <h2 className="font-mono text-xs text-muted-foreground">STEP 1</h2>
         <h1 className="text-2xl">
@@ -174,8 +175,13 @@ export default function Connect() {
         </Card>
         <LogWindow ref={logRef} step={0} />
       </div>
-      <div>
-        <Button>next: get nonce</Button>
+      <div className="flex justify-end">
+        <Button onClick={() => setStepState(1)}>
+          <div className="flex items-center gap-2 text-sm">
+            next: get nonce
+            <ArrowRightIcon />
+          </div>
+        </Button>
       </div>
     </div>
   );
