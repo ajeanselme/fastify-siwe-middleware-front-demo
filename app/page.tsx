@@ -1,17 +1,8 @@
-"use client";
-
-import { useStore } from "@nanostores/react";
-import { $stepState } from "./_stores/progressStore";
-import Connect from "./_components/connectModule";
-import Sidebar from "./_components/sidebar";
+import MainModule from "./_components/mainModule";
 
 export default function Home() {
-  const stepState = useStore($stepState);
 
   return (
-    <>
-      <Sidebar />
-      <div className="p-4 w-full sm:col-span-3">{stepState === 0 ? <Connect /> : <></>}</div>
-    </>
+    <MainModule apiURL={process.env.API_URL!} />
   );
 }
