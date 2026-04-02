@@ -20,11 +20,10 @@ import { setNonce } from "../_stores/nonceStore";
 
 export default function Nonce() {
   const walletAddress = useStore($walletAddress);
-  const chainid = useStore($chainId);
   const logRef = React.useRef<LogWindowHandle>(null);
 
   async function getNonce() {
-    if (!walletAddress || !chainid) {
+    if (!walletAddress) {
       logRef.current?.appendLog("Connect wallet first", "error");
       return;
     }
