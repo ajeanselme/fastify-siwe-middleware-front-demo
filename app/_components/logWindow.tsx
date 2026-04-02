@@ -1,33 +1,35 @@
 "use client";
 
 import { forwardRef, useImperativeHandle, useState } from "react";
+import {
+  LogEntry,
+  LogLevel,
+  appendLog,
+  clearLogsForStep,
+  getLogsForStep,
+} from "../_stores/logStore";
 
 export type LogWindowHandle = {
-  appendLog: (line: string) => void;
+  appendLog: (line: string, level?: LogLevel) => void;
   clearLogs: () => void;
 };
 
-type LogLevel = "info" | "error" | "warning" | "success";
-type LogEntry = { time: Date; line: string; level: LogLevel };
-
-type LogWindowProps = {
-  initialLines?: LogEntry[];
-};
-
-const LogWindow = forwardRef<LogWindowHandle, LogWindowProps>(
-  function LogWindow({ initialLines = [] }, ref) {
-    const [lines, setLines] = useState<LogEntry[]>(initialLines);
+const LogWindow = forwardRef<LogWindowHandle, { step: number }>(
+  function LogWindow({ step }, ref) {
+    const [lines, setLines] = useState<LogEntry[]>(getLogsForStep(step));
 
     useImperativeHandle(
       ref,
       () => ({
-        appendLog(line: string) {
+        appendLog(line: string, level: LogLevel = "info") {
+          appendLog(step, line, level);
           setLines((currentLines) => [
             ...currentLines,
-            { time: new Date(), line, level: "info" },
+            { time: new Date(), line, level },
           ]);
         },
         clearLogs() {
+          clearLogsForStep(step);
           setLines([]);
         },
       }),
@@ -41,10 +43,21 @@ const LogWindow = forwardRef<LogWindowHandle, LogWindowProps>(
             {lines.map((logEntry, index) => (
               <div
                 key={`${index}-${logEntry.line}`}
-                className="whitespace-pre-wrap font-mono"
+                className="whitespace-pre-wrap font-mono text-xs lowercase"
               >
-                [{logEntry.time.getHours()}:{logEntry.time.getMinutes()}:
-                {logEntry.time.getSeconds()}]{" "}
+                [
+                {logEntry.time.getHours() < 10
+                  ? `0${logEntry.time.getHours()}`
+                  : logEntry.time.getHours()}
+                :
+                {logEntry.time.getMinutes() < 10
+                  ? `0${logEntry.time.getMinutes()}`
+                  : logEntry.time.getMinutes()}
+                :
+                {logEntry.time.getSeconds() < 10
+                  ? `0${logEntry.time.getSeconds()}`
+                  : logEntry.time.getSeconds()}
+                ]{" "}
                 <span
                   className={`${logEntry.level === "error" ? "text-red-500" : logEntry.level === "warning" ? "text-yellow-500" : logEntry.level === "success" ? "text-green-500" : "text-blue-500"}`}
                 >
@@ -56,6 +69,7 @@ const LogWindow = forwardRef<LogWindowHandle, LogWindowProps>(
         ) : (
           <div className="text-sm text-muted">Logs will appear here...</div>
         )}
+        <div className="bg-accent/70 w-2 animate-caret-blink h-4" />
       </div>
     );
   },
