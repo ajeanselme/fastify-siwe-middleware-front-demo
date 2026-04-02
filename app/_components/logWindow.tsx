@@ -43,7 +43,7 @@ const LogWindow = forwardRef<LogWindowHandle, { step: number }>(
             {lines.map((logEntry, index) => (
               <div
                 key={`${index}-${logEntry.line}`}
-                className="whitespace-pre-wrap font-mono text-xs lowercase"
+                className="whitespace-pre-wrap font-mono text-xs"
               >
                 [
                 {logEntry.time.getHours() < 10
