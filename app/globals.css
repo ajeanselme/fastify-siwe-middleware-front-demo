@@ -28,6 +28,7 @@
   --color-destructive: var(--destructive);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
+  --color-accent2: var(--accent2);
   --color-muted-foreground: var(--muted-foreground);
   --color-muted: var(--muted);
   --color-secondary-foreground: var(--secondary-foreground);
@@ -36,8 +37,8 @@
   --color-primary: var(--primary);
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
-  --color-card: var(--card);
+  --color-card-foreground: var(--foreground);
+  --color-card: var(--surface);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -51,8 +52,6 @@
   --background: #0c0d0f;
   --surface: #131519;
   --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
   --primary: oklch(0.922 0 0);
@@ -62,7 +61,8 @@
   --muted: oklch(0.269 0 0);
   --muted-foreground: #5a6072;
   --accent: #3ecf8e;
-  --accent-foreground: oklch(0.985 0 0);
+  --accent2: #00b4d8;
+  --accent-foreground: oklch(26.862% 0.00003 271.152);
   --destructive: #f43f5e;
   --border: #1f2229;
   --input: oklch(1 0 0 / 15%);
@@ -91,7 +91,22 @@
     @apply bg-background text-foreground;
   }
   html {
-    @apply font-sans;
+    @apply font-sans tracking-wide antialiased;
     color-scheme: dark;
+  }
+  .code-block {
+    @apply bg-background border rounded-sm px-4 py-5 font-mono text-xs text-[#8899bb] overflow-x-auto relative whitespace-pre;
+  }
+  .code-block .cmt {
+    @apply text-[#5a6072];
+  }
+  .code-block .purple {
+    @apply text-purple-400;
+  }
+  .code-block .fn {
+    @apply text-blue-400;
+  }
+  .code-block .str {
+    @apply text-lime-200;
   }
 }
