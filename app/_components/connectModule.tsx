@@ -19,6 +19,7 @@ import LogWindow, { LogWindowHandle } from "./logWindow";
 import React from "react";
 import { setStepProgress, setStepState } from "../_stores/progressStore";
 import { ArrowRightIcon } from "@phosphor-icons/react";
+import { truncateAddress } from "@/lib/wallet";
 
 type EIP1193Provider = {
   request: <T = unknown>(args: {
@@ -185,9 +186,4 @@ export default function Connect() {
       </div>
     </div>
   );
-}
-
-function truncateAddress(address: string): string {
-  if (address.length < 10) return address;
-  return `${address.slice(0, 6)}...${address.slice(-4)}`;
 }
