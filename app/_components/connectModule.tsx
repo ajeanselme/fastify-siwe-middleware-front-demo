@@ -20,6 +20,7 @@ import React from "react";
 import { setStepProgress, setStepState } from "../_stores/progressStore";
 import { ArrowRightIcon } from "@phosphor-icons/react";
 import { truncateAddress } from "@/lib/wallet";
+import { parse } from "path";
 
 type EIP1193Provider = {
   request: <T = unknown>(args: {
@@ -69,7 +70,7 @@ export default function Connect() {
       const address = accounts[0] as string;
       setStepProgress(1);
       setWalletAddress(address);
-      setChainId(chainId);
+      setChainId(parseInt(chainId, 16));
       logRef.current?.appendLog(
         `Connected wallet: ${truncateAddress(address)} on chain ${chainId}`,
         "success",
@@ -86,12 +87,10 @@ export default function Connect() {
     logRef.current?.appendLog("Simulating wallet connection...", "info");
     setTimeout(() => {
       const simulatedAddress = "0x1234567890abcdef1234567890abcdef12345678";
-      const simulatedChainId = "0x1";
       setWalletAddress(simulatedAddress);
-      setChainId(simulatedChainId);
       setStepProgress(1);
       logRef.current?.appendLog(
-        `Simulated wallet connected: ${truncateAddress(simulatedAddress)} on chain ${simulatedChainId}`,
+        `Simulated wallet connected: ${truncateAddress(simulatedAddress)} on chain 1`,
         "success",
       );
     }, 1000);
