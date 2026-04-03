@@ -116,9 +116,9 @@ export default function Inspect() {
         </Card>
       </div>
       <div className="flex justify-end">
-        <Button onClick={() => setStepState(2)}>
+        <Button onClick={() => setStepState(4)}>
           <div className="flex items-center gap-2 text-sm">
-            next: inspect tokens
+            next: GET /auth/me
             <ArrowRightIcon />
           </div>
         </Button>
