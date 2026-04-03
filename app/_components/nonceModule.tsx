@@ -63,7 +63,7 @@ export default function Nonce() {
         );
       }
     } else {
-      if (response.ok) {
+      if (response.status !== 404) {
         const errorData = await response.json();
         logRef.current?.appendLog(
           `${response.status} ${response.statusText} - ${errorData.error || "Unknown error"}`,
