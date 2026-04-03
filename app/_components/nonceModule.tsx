@@ -55,7 +55,7 @@ export default function Nonce() {
         );
         logRef.current?.appendLog(`stored in Redis - TTL 300s`, "info");
         setNonce(nonce);
-        setStepProgress(1);
+        setStepProgress(2);
       } else {
         logRef.current?.appendLog(
           `200 OK - but nonce missing in response`,
@@ -66,7 +66,7 @@ export default function Nonce() {
       if (response.ok) {
         const errorData = await response.json();
         logRef.current?.appendLog(
-          `${response.status} ${response.statusText} - ${errorData.message || "Unknown error"}`,
+          `${response.status} ${response.statusText} - ${errorData.error || "Unknown error"}`,
           "error",
         );
       } else {
