@@ -54,7 +54,7 @@ export default function Sidebar() {
   }
 
   return (
-    <div className="font-mono bg-surface border-r text-xs col-span-4 sm:col-span-1 border-b">
+    <div className="font-mono bg-surface border-r text-xs border-b w-full sm:min-w-60 sm:w-60">
       <div className="text-xs uppercase text-muted-foreground p-4">
         Auth Flow
       </div>

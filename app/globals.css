@@ -99,7 +99,7 @@
   }
 
   .code-block {
-    @apply bg-background border rounded-sm p-5 font-mono text-xs text-[#8899bb] leading-5 overflow-x-auto relative whitespace-pre;
+    @apply bg-background border rounded-sm p-5 font-mono text-xs text-[#8899bb] leading-5 overflow-x-auto relative whitespace-pre-wrap;
   }
   .code-block .cmt {
     @apply text-[#5a6072];
