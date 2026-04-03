@@ -18,6 +18,7 @@ import { Badge } from "@/components/ui/badge";
 import { $nonce } from "../_stores/nonceStore";
 import { SiweMessage } from "siwe";
 import { BrowserProvider, getAddress } from "ethers";
+import { setJwt, setRefreshToken } from "../_stores/jwtStore";
 
 export default function Sign() {
   const walletAddress = useStore($walletAddress);
@@ -61,6 +62,8 @@ export default function Sign() {
       logRef.current?.appendLog(`Simulated signature obtained`, "success");
       sendResultLogs();
       logRef.current?.appendLog(`200 OK - JWT issued`, "success");
+      setJwt(makeJwt(walletAddress));
+      setRefreshToken(makeRefreshToken());
       setStepProgress(3);
       return;
     }
@@ -118,7 +121,20 @@ export default function Sign() {
       sendResultLogs();
       logRef.current?.appendLog(`200 OK - JWT issued`, "success");
       const data = await response.json();
-      console.log("Verification response data:", data);
+      console.log(data);
+      const accessToken = data.accessToken as string | undefined;
+      const refreshToken = data.refreshToken as string | undefined;
+
+      if (accessToken && refreshToken) {
+        setJwt(accessToken);
+        setRefreshToken(refreshToken);
+        setStepProgress(3);
+      } else {
+        logRef.current?.appendLog(
+          `200 OK - but JWT missing in response`,
+          "error",
+        );
+      }
       setStepProgress(3);
     } else {
       if (response.status !== 404) {
@@ -260,7 +276,7 @@ export default function Sign() {
         <LogWindow ref={logRef} step={2} />
       </div>
       <div className="flex justify-end">
-        <Button onClick={() => setStepState(2)}>
+        <Button onClick={() => setStepState(3)}>
           <div className="flex items-center gap-2 text-sm">
             next: inspect tokens
             <ArrowRightIcon />
@@ -269,4 +285,32 @@ export default function Sign() {
       </div>
     </div>
   );
+}
+
+function makeJwt(address: string) {
+  const header = btoa(JSON.stringify({ alg: "RS256", typ: "JWT" })).replace(
+    /=/g,
+    "",
+  );
+  const now = Math.floor(Date.now() / 1000);
+  const payload = btoa(
+    JSON.stringify({
+      sub: address,
+      sessionId: crypto.randomUUID(),
+      iat: now,
+      exp: now + 900,
+      iss: "siwe-middleware-demo",
+    }),
+  ).replace(/=/g, "");
+  const fakeSig = btoa("demo-signature-not-real").replace(/=/g, "");
+  return `${header}.${payload}.${fakeSig}`;
+}
+
+function makeRefreshToken() {
+  const arr = new Uint8Array(36);
+  crypto.getRandomValues(arr);
+  return btoa(String.fromCharCode(...arr))
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_")
+    .replace(/=/g, "");
 }
