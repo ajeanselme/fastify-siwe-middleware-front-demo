@@ -13,6 +13,7 @@ import {
   $chainId,
   $walletAddress,
   setChainId,
+  setIsSimulated,
   setWalletAddress,
 } from "../_stores/walletStore";
 import LogWindow, { LogWindowHandle } from "./logWindow";
@@ -87,6 +88,7 @@ export default function Connect() {
     setTimeout(() => {
       const simulatedAddress = "0x1234567890abcdef1234567890abcdef12345678";
       setWalletAddress(simulatedAddress);
+      setIsSimulated(true);
       setStepProgress(1);
       logRef.current?.appendLog(
         `Simulated wallet connected: ${truncateAddress(simulatedAddress)} on chain 1`,
