@@ -20,7 +20,6 @@ import React from "react";
 import { setStepProgress, setStepState } from "../_stores/progressStore";
 import { ArrowRightIcon } from "@phosphor-icons/react";
 import { truncateAddress } from "@/lib/wallet";
-import { parse } from "path";
 
 type EIP1193Provider = {
   request: <T = unknown>(args: {

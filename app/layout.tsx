@@ -39,8 +39,8 @@ export default function RootLayout({
         jetbrainsMono.variable,
       )}
     >
-      <body className="min-h-full">
-        <div className="sm:h-screen flex flex-col">
+      <body>
+        <div className="sm:min-h-screen flex flex-col">
           <header className="w-full h-fit  bg-surface border-b p-4 flex items-center gap-2 font-mono text-xs">
             <span className="text-accent font-semibold">
               web3-siwe-middleware
@@ -48,7 +48,7 @@ export default function RootLayout({
             <span className="text-muted">/</span>
             <span className="text-muted-foreground">front demo</span>
           </header>
-          <div className="flex flex-col sm:flex-row h-full">
+          <div className="flex flex-col sm:flex-row flex-1">
             {children}
           </div>
         </div>
