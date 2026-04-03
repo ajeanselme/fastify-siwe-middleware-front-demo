@@ -32,9 +32,11 @@ export default function Sidebar() {
       >
         {step < stepProgress ? (
           <div
-            className={"rounded-full border border-accent w-6 h-6 flex items-center justify-center text-[10px] font-mono mr-2 bg-accent/80"}
+            className={
+              "rounded-full border border-accent w-6 h-6 flex items-center justify-center text-[10px] font-mono mr-2 bg-accent/80"
+            }
           >
-            <CheckIcon className="text-surface" size={15}/>
+            <CheckIcon className="text-surface" size={15} />
           </div>
         ) : (
           <div
@@ -54,16 +56,22 @@ export default function Sidebar() {
   }
 
   return (
-    <div className="font-mono bg-surface border-r text-xs border-b w-full sm:min-w-60 sm:w-60">
+    <nav className="font-mono bg-surface border-r text-xs border-b w-full sm:min-w-60 sm:w-60">
       <div className="text-xs uppercase text-muted-foreground p-4">
         Auth Flow
       </div>
-      <nav className="w-full flex flex-col text-foreground">
+      <div className="w-full flex flex-col text-foreground">
         <NavButton step={0}>connect wallet</NavButton>
         <NavButton step={1}>get nonce</NavButton>
         <NavButton step={2}>sign & verify</NavButton>
         <NavButton step={3}>inspect tokens</NavButton>
-      </nav>
-    </div>
+      </div>
+      <div className="text-xs uppercase text-muted-foreground p-4">
+        Protected
+      </div>
+      <div className="w-full flex flex-col text-foreground">
+        <NavButton step={4}>GET /auth/me</NavButton>
+      </div>
+    </nav>
   );
 }
