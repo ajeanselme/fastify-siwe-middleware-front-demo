@@ -121,7 +121,7 @@ export default function Sign() {
       sendResultLogs();
       logRef.current?.appendLog(`200 OK - JWT issued`, "success");
       const data = await response.json();
-      console.log(data);
+      
       const accessToken = data.accessToken as string | undefined;
       const refreshToken = data.refreshToken as string | undefined;
 
@@ -275,7 +275,7 @@ export default function Sign() {
         </Card>
         <LogWindow ref={logRef} step={2} />
       </div>
-      <div className="flex justify-end">
+      <div className="flex justify-end mt-4">
         <Button onClick={() => setStepState(3)}>
           <div className="flex items-center gap-2 text-sm">
             next: inspect tokens

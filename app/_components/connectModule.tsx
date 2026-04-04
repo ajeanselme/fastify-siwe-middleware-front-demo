@@ -52,7 +52,7 @@ export default function Connect() {
         );
         return;
       }
-      console.log("Ethereum provider found:", ethereum);
+      
       await ethereum.request<string[]>({ method: "eth_requestAccounts" });
       const accounts = await ethereum.request<string[]>({
         method: "eth_accounts",
@@ -176,7 +176,7 @@ export default function Connect() {
         </Card>
         <LogWindow ref={logRef} step={0} />
       </div>
-      <div className="flex justify-end">
+      <div className="flex justify-end mt-4">
         <Button onClick={() => setStepState(1)}>
           <div className="flex items-center gap-2 text-sm">
             next: get nonce
