@@ -8,6 +8,7 @@ import Nonce from "../_components/nonceModule";
 import Sign from "./signModule";
 import Inspect from "./inspectModule";
 import Me from "./meModule";
+import Refresh from "./refreshModule";
 
 export default function MainModule() {
   const stepState = useStore($stepState);
@@ -26,6 +27,8 @@ export default function MainModule() {
           <Inspect />
         ) : stepState === 4 ? (
           <Me />
+        ) : stepState === 5 ? (
+          <Refresh />
         ) : (
           <></>
         )}
