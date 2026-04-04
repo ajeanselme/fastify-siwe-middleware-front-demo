@@ -71,7 +71,8 @@ export default function Sidebar() {
       </div>
       <div className="w-full flex flex-col text-foreground">
         <NavButton step={4}>GET /auth/me</NavButton>
-        <NavButton step={5}>POST /auth/refresh</NavButton>
+        <NavButton step={5}>/auth/refresh</NavButton>
+        <NavButton step={6}>/auth/logout</NavButton>
       </div>
     </nav>
   );

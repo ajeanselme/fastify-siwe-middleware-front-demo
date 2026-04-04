@@ -12,6 +12,7 @@ const badgeVariants = cva(
         default: "bg-primary text-primary-foreground [a]:hover:bg-primary/80",
         get: "bg-green-100 text-green-800 font-mono text-xs uppercase font-bold",
         post: "bg-blue-300 text-blue-800 font-mono text-xs uppercase font-bold",
+        delete: "bg-red-300 text-red-800 font-mono text-xs uppercase font-bold",
         secondary:
           "bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80",
         destructive:

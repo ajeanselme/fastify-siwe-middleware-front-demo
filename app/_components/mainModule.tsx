@@ -9,6 +9,7 @@ import Sign from "./signModule";
 import Inspect from "./inspectModule";
 import Me from "./meModule";
 import Refresh from "./refreshModule";
+import Logout from "./logoutModule";
 
 export default function MainModule() {
   const stepState = useStore($stepState);
@@ -29,6 +30,8 @@ export default function MainModule() {
           <Me />
         ) : stepState === 5 ? (
           <Refresh />
+        ) : stepState === 6 ? (
+          <Logout />
         ) : (
           <></>
         )}
