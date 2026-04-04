@@ -147,7 +147,7 @@ export default function Nonce() {
         </Card>
         <LogWindow ref={logRef} step={1} />
       </div>
-      <div className="flex justify-end">
+      <div className="flex justify-end mt-4">
         <Button onClick={() => setStepState(1)}>
           <div className="flex items-center gap-2 text-sm">
             next: sign & verify

@@ -115,7 +115,7 @@ export default function Inspect() {
           </CardContent>
         </Card>
       </div>
-      <div className="flex justify-end">
+      <div className="flex justify-end mt-4">
         <Button onClick={() => setStepState(4)}>
           <div className="flex items-center gap-2 text-sm">
             next: GET /auth/me
