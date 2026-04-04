@@ -13,7 +13,7 @@ import LogWindow, { LogWindowHandle } from "./logWindow";
 import React from "react";
 import { setStepProgress, setStepState } from "../_stores/progressStore";
 import { Button } from "@/components/ui/button";
-import { ArrowRightIcon } from "@phosphor-icons/react";
+import { ArrowLeftIcon, ArrowRightIcon } from "@phosphor-icons/react";
 import { Badge } from "@/components/ui/badge";
 import { truncateAddress } from "@/lib/wallet";
 import { setNonce } from "../_stores/nonceStore";
@@ -147,8 +147,14 @@ export default function Nonce() {
         </Card>
         <LogWindow ref={logRef} step={1} />
       </div>
-      <div className="flex justify-end mt-4">
-        <Button onClick={() => setStepState(1)}>
+      <div className="flex justify-between mt-4">
+        <Button onClick={() => setStepState(0)} variant={"outline"}>
+          <div className="flex items-center gap-2 text-sm">
+            <ArrowLeftIcon />
+            back
+          </div>
+        </Button>
+        <Button onClick={() => setStepState(2)}>
           <div className="flex items-center gap-2 text-sm">
             next: sign & verify
             <ArrowRightIcon />

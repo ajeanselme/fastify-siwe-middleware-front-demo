@@ -13,7 +13,7 @@ import LogWindow, { LogWindowHandle } from "./logWindow";
 import { useRef, useState } from "react";
 import { setStepProgress, setStepState } from "../_stores/progressStore";
 import { Button } from "@/components/ui/button";
-import { ArrowRightIcon, LockIcon } from "@phosphor-icons/react";
+import { ArrowLeftIcon, ArrowRightIcon, LockIcon } from "@phosphor-icons/react";
 import { Badge } from "@/components/ui/badge";
 import { truncateAddress } from "@/lib/wallet";
 import { $jwt } from "../_stores/jwtStore";
@@ -186,7 +186,13 @@ export default function Me() {
         </Card>
         <LogWindow ref={logRef} step={4} />
       </div>
-      <div className="flex justify-end mt-4">
+      <div className="flex justify-between mt-4">
+        <Button onClick={() => setStepState(3)} variant={"outline"}>
+          <div className="flex items-center gap-2 text-sm">
+            <ArrowLeftIcon />
+            back
+          </div>
+        </Button>
         <Button onClick={() => setStepState(5)}>
           <div className="flex items-center gap-2 text-sm">
             next: refresh token

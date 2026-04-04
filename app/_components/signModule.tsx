@@ -13,7 +13,7 @@ import LogWindow, { LogWindowHandle } from "./logWindow";
 import React from "react";
 import { setStepProgress, setStepState } from "../_stores/progressStore";
 import { Button } from "@/components/ui/button";
-import { ArrowRightIcon } from "@phosphor-icons/react";
+import { ArrowLeftIcon, ArrowRightIcon } from "@phosphor-icons/react";
 import { Badge } from "@/components/ui/badge";
 import { $nonce } from "../_stores/nonceStore";
 import { SiweMessage } from "siwe";
@@ -121,7 +121,7 @@ export default function Sign() {
       sendResultLogs();
       logRef.current?.appendLog(`200 OK - JWT issued`, "success");
       const data = await response.json();
-      
+
       const accessToken = data.accessToken as string | undefined;
       const refreshToken = data.refreshToken as string | undefined;
 
@@ -275,7 +275,13 @@ export default function Sign() {
         </Card>
         <LogWindow ref={logRef} step={2} />
       </div>
-      <div className="flex justify-end mt-4">
+      <div className="flex justify-between mt-4">
+        <Button onClick={() => setStepState(1)} variant={"outline"}>
+          <div className="flex items-center gap-2 text-sm">
+            <ArrowLeftIcon />
+            back
+          </div>
+        </Button>
         <Button onClick={() => setStepState(3)}>
           <div className="flex items-center gap-2 text-sm">
             next: inspect tokens
