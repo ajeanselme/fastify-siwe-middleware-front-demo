@@ -1,5 +1,5 @@
 {
-  "name": "web3-siwe-middleware-front-demo",
+  "name": "fastify-siwe-middleware-front-demo",
   "version": "0.1.0",
   "private": true,
   "scripts": {

@@ -23,7 +23,7 @@ export function mockMakeJwt(address: string) {
       sessionId: crypto.randomUUID(),
       iat: now,
       exp: now + 900,
-      iss: "siwe-middleware-demo",
+      iss: "fastify-siwe-middleware-demo",
     }),
   ).replace(/=/g, "");
   const fakeSig = btoa(crypto.randomUUID()).replace(/=/g, "");
