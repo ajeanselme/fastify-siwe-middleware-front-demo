@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SIWE Middleware Front Demo
+
+This project is a browser-based demo for a Fastify SIWE authentication flow. It walks through the full sign-in lifecycle from wallet connection to nonce retrieval, SIWE message signing, token inspection, refresh rotation, and logout.
+
+The UI is intentionally interactive and educational: each step explains what the client is doing and what the server is expected to verify on the backend.
+
+## What It Demonstrates
+
+- Connect an EIP-1193 wallet such as MetaMask.
+- Request a server-generated nonce for a wallet address.
+- Sign a SIWE message and exchange it for access and refresh tokens.
+- Inspect the JWT payload and refresh token state.
+- Call protected auth routes such as `/auth/me`, `/auth/refresh`, and `/auth/logout`.
+- Use a simulated wallet flow when no browser wallet is available.
+
+## Tech Stack
+
+- Next.js 16 App Router
+- React 19
+- TypeScript
+- Tailwind CSS 4
+- Nanostores for UI state
+- SIWE for message construction and verification
 
 ## Getting Started
 
-First, run the development server:
+Install dependencies and start the app:
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Backend Expectations
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The demo calls relative auth endpoints on the same origin:
 
-## Learn More
+- `GET /auth/nonce`
+- `POST /auth/verify`
+- `GET /auth/me`
+- `POST /auth/refresh`
+- `DELETE /auth/logout`
 
-To learn more about Next.js, take a look at the following resources:
+That means the frontend should be served alongside the Fastify service, or behind a proxy that forwards `/auth/*` requests to the API.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+If a wallet extension is not installed, the app includes a simulated wallet path so you can still explore the flow end to end.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Project Structure
 
-## Deploy on Vercel
+- `app/page.tsx` renders the demo shell.
+- `app/_components/` contains the step-by-step auth screens.
+- `app/_stores/` holds shared state for wallet, nonce, JWT, progress, and logs.
+- `lib/` contains small helpers and mock token generators used by the demo UI.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Development
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `npm run dev` starts the local dev server.
+- `npm run build` builds the app for production.
+- `npm run start` runs the production build.
+- `npm run lint` runs ESLint.
+
+## Notes
+
+The app uses relative API paths and does not define backend environment variables in this repository. If the auth service is unavailable, some steps will show an API-unreachable state.
